@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+<script type="text/javascript">
+	var n = 12321;
+	var s = 0;	
+	var r = 0;
+	var m = n;
+	while (n) {
+			s = n % 10;
+			r = r * 10 + s;
+			n = Math.floor(n / 10);		
+	} 
+	
+	if ( r == m) {
+		console.log ("este palindrom")
+	} else {
+		console.log ("nu este palindrom")
+	}
+	
+</script>	
+<meta charset="utf-8">
+<title>Untitled Document</title>
+</head>
+
+<body>
+</body>
+</html>

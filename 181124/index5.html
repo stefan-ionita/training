@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+<script type="text/javascript">
+	
+	document.addEventListener("DOMContentLoaded", function(event) {
+		var body = document.getElementsByTagName("body");		
+		// var body = document.body;
+    	var div;
+		
+		setTimeout(generateSqaures, 10);
+		
+		function generateSqaures() {
+			body[0].innerHTML = "";
+			for (var i = 0; i < 200; i++) {
+				div = document.createElement("div");
+				div.style.display = "inline-block";
+				div.style.background = "#" + (Math.floor(Math.random() * 0xffffff));
+				div.style.transition = "width 500ms, height 500ms, left 500ms, top 500ms";
+				div.style.width = "10px";
+				div.style.height = "10px";
+				div.style.left = "0";
+				div.style.marginLeft = "5px";
+				div.style.position = "absolute";
+				div.style.top = (i * 10) + "px";
+				div.style.borderRadius = "50%";
+	
+				
+				//div.class = "clasa mea";
+	
+				body[0].appendChild(div);	
+				
+			}
+			setTimeout(alter, 1);
+			function alter() {
+				var divs = document.getElementsByTagName("div");		
+				for (var i = 0; i < divs.length; i++) {
+					div = divs[i];
+					div.style.height = div.style.width = (Math.random() * 50) + "px";
+					div.style.left = (Math.random() * 1000) + "px";
+					div.style.top = (Math.random() * 1000) + "px";
+					div.style.background = "#" + (Math.floor(Math.random() * 0xffffff));
+				}	
+				setTimeout(alter, 1000);
+			}
+			
+			//setTimeout(generateSqaures, 1000);
+		}
+		
+  	});
+	
+	
+	
+</script>	
+<meta charset="utf-8">
+<title>Untitled Document</title>
+</head>
+
+<body>
+</body>
+</html>
