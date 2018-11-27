@@ -2,21 +2,35 @@
 <html>
 <head>
 <script type="text/javascript">
-var numarGenerat = Math.floor(Math.random() * 10000);
-var output = [],
-    sNumber = numarGenerat.toString();
-
-for (var i = 0, len = sNumber.length; i < len; i += 1) {
-    output.push(+sNumber.charAt(i));
-}
-
-console.log(output);
-console.log(numarGenerat)
-while(output[i])		
-
+	var n = 796;
+	var c1 = Math.floor(n  % 10);	
+	var c2 = Math.floor((n / 10) % 10);
+	var c3 = Math.floor((n / 100) % 10);
 	
+	while ((c1<c2) || (c1<c3)) {
+		if (c2<c3){
+				console.log( c3 + '' + c2);
+			} else {
+				console.log( c2 + '' + c3);
+				} 
+			}
+	while ((c2<c1) || (c2<c3)) {
+		if (c2<c1){
+				console.log( c1 + '' + c2);
+			} else {
+				console.log( c1 + '' + c2);
+				} 
+			} 	
 	
-</script>
+	while ((c3<c2) || (c3<c1)) {
+		if (c2<c1){
+				console.log( c1 + '' + c2);
+			} else {
+				console.log( c2 + '' + c1);
+				} 	
+			} 
+	
+</script>	
 <meta charset="utf-8">
 <title>Untitled Document</title>
 </head>
