@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+
+<script type="text/javascript">
+var rezultat;
+function prim(n){    
+var isPrime = true;
+    if (n % 2 == 0) {
+       isPrime = false;
+    } else {
+        for(var i = 3; i< n/2; i+=2){
+            if (n % i == 0){
+                isPrime = false;  
+                break;
+            }
+        } 
+    }
+    return isPrime;
+} 
+    
+    for(var i=0; i < 10000; i++ ){
+        rezultat = prim(i);
+        if (rezultat) {
+            console.log(i);           
+        }
+    }
+
+
+</script>
+
+</body>
+</html>

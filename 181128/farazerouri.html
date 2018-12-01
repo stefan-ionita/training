@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+
+<head>
+    <script type="text/javascript">
+        var n = 150050050055;
+        var counter = 0;
+        var m = 0;
+        var s = 0;
+        while (n) {            
+            s = n % 10;
+            n = Math.floor(n / 10);
+            if (s != 0){
+            m = m * 10 + s;
+            }
+        }
+        while(m){
+            s = m % 10;
+            m = Math.floor(m / 10);
+            n = n * 10 + s;            
+        }
+        console.log(n);
+            
+        
+    </script>
+    <meta charset="utf-8">
+    <title>Untitled Document</title>
+</head>
+
+<body>
+</body>
+
+</html>

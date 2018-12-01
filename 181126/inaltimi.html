@@ -8,29 +8,32 @@
 
 <script>
 
-var ion, i, gig, dan = "";
+var ion, i, gig, dan;
 var x;
 var a = 0;
 var b = 0;
 var c = 0;
-ion = {"name":"Ionel", "inaltime":170}
-gig = {"name":"Gigel", "inaltime":180}
-dan = {"name":"Danut", "inaltime":190}
+ion = {"name": "Ionel", "inaltime": 170}
+gig = {"name": "Gigel", "inaltime": 180}
+dan = {"name": "Danut", "inaltime": 190}
 
 a = ion.inaltime;
 b = gig.inaltime;
 c = dan.inaltime;
-	while ((a<b) || (a<c)){
+	if ((a<b) && (a<c)){
 		if (b<c){
-			x = a, b, c;
+			var s = ion.name + " " + gig.name + " " + dan.name;
+			//x = a, b, c;
 		} 
 		else {
-			x = a, c, b	;
+			var s = ion.name + " " + dan.name + " " + gig.name;
+			//x = a, c, b	;
 		}
 	}
 
 
-document.getElementById("demo").innerHTML = x;
+document.getElementById("demo").innerHTML = s;
+console.log(document.getElementById("demo"));
 
 </script>
 

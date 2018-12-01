@@ -7,28 +7,25 @@
 	var c2 = Math.floor((n / 10) % 10);
 	var c3 = Math.floor((n / 100) % 10);
 	
-	while ((c1<c2) || (c1<c3)) {
+	if ((c1<c2) && (c1<c3)) {
 		if (c2<c3){
-				console.log( c3 + '' + c2);
-			} else {
-				console.log( c2 + '' + c3);
-				} 
-			}
-	while ((c2<c1) || (c2<c3)) {
+			console.log( c3 + '' + c2);
+		} else {
+			console.log( c2 + '' + c3);
+		} 
+	} else if ((c2<c1) && (c2<c3)) {
 		if (c2<c1){
-				console.log( c1 + '' + c2);
-			} else {
-				console.log( c1 + '' + c2);
-				} 
-			} 	
-	
-	while ((c3<c2) || (c3<c1)) {
-		if (c2<c1){
-				console.log( c1 + '' + c2);
-			} else {
-				console.log( c2 + '' + c1);
-				} 	
+			console.log( c1 + '' + c2);
+		} else {
+			console.log( c1 + '' + c2);
 			} 
+	} else if ((c3<c2) && (c3<c1)) {
+		if (c2<c1){
+			console.log( c1 + '' + c2);
+		} else {
+			console.log( c2 + '' + c1);
+			} 	
+	} 
 	
 </script>	
 <meta charset="utf-8">

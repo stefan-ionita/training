@@ -5,8 +5,9 @@
 var numarGenerat;
 var min = 99999;
 var max = 0;
-	
-for (var i = 0; i < 10; i++) {
+max = Math.floor(Math.random() * 10000);
+min = max;
+for (var i = 1; i < 10; i++) {
 	numarGenerat = Math.floor(Math.random() * 10000);
 	console.log(numarGenerat);
 	if (numarGenerat > max){

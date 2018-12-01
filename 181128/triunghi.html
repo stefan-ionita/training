@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+<script type="text/javascript">
+var c = 10;
+var a = 8;	
+var b = 6;
+var aria = 0;	
+var p = 0;	
+	
+	if((a>b) && (a>c)){
+		if (b*b + c*c == a*a){		
+			aria =(b*c)/2;
+			p = a + b + c;
+			console.log('este triunghi dreptunghic');
+			console.log('Aria Triunghiului este '+aria);
+			console.log('Perimetrul Triunghiului este '+p);
+		} else {
+		console.log('NU este triunghi dreptunghic');
+		}
+	} else if ((b>c) && (b>a)){
+		if (a*a + c*c == b*b){
+			aria =(a*c)/2;
+			p = a + b + c;
+			console.log('este triunghi dreptunghic');
+			console.log('Aria Triunghiului este '+aria);
+			console.log('Perimetrul Triunghiului este '+p);
+		} else {
+		console.log('NU este triunghi dreptunghic');
+		}
+	} else if ((c>b) && (c>a)){
+		if (a*a + b*b == c*c){
+			aria =(a*b)/2;
+			p = a + b + c;
+			console.log('este triunghi dreptunghic');
+			console.log('Aria Triunghiului este '+aria);
+			console.log('Perimetrul Triunghiului este '+p);
+		}	else {
+		console.log('NU este triunghi dreptunghic');
+		}
+	} 
+		  
+	
+	
+			
+</script>
+<meta charset="utf-8">
+<title>Untitled Document</title>
+</head>
+
+<body>
+</body>
+</html>

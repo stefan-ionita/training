@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+
+<script type="text/javascript">
+var s = "ana are mere";   
+var a = "a";    
+var e = "e"; 
+var i = "i"; 
+var o = "o";
+var u = "u";  
+var spatiu = " ";
+var vocale = 0;    
+var consoane = 0;    
+var caracterCurent;
+    
+console.log(s);    
+for (var i = 0; i < s.length; i++){
+    caracterCurent = s.charAt(i);
+//    if ((a == caracterCurent) || (e == caracterCurent) || (i == caracterCurent) || (o == caracterCurent) ||(u == caracterCurent)){
+//         vocale++ ;           
+//    } else if (caracterCurent != spatiu){
+//        consoane++;
+//    }
+    
+    switch(caracterCurent) {
+        case a:
+            vocale++;
+            break;
+        case e:
+            vocale++;
+            break;
+        case i:
+            vocale++;
+            break;
+        case o:
+            vocale++;
+            break;
+        case u:
+            vocale++;
+            break;
+        default: 
+            if (caracterCurent != " ") {
+                consoane++;
+            }
+    }
+    
+}console.log("Numar vocale: " + vocale);
+console.log("Numar consoane: " + consoane);
+
+
+
+
+</script>
+
+</body>
+</html>
