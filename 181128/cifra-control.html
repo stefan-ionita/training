@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+
+<head>
+    <script type="text/javascript">
+        var n = 5696559545456465654674564564645;
+        var suma = 0;
+        var rest = 0;
+        var counter = 0;
+        var m = n;
+        var sumanoua = 0;
+        while (n) {
+            n = Math.floor(n / 10);
+            counter++;
+        }
+      //  console.log(counter);
+        for (var i = 0; i <= counter; i++) {
+            rest = m % 10;
+            m = Math.floor(m / 10);
+            suma = suma + rest;
+        }
+        console.log(suma);
+        while (suma) {
+            rest = suma % 10;
+            suma = Math.floor(suma / 10);
+            sumanoua = sumanoua + rest;
+        }
+
+        console.log(sumanoua);
+
+    </script>
+    <meta charset="utf-8">
+    <title>Untitled Document</title>
+</head>
+
+<body>
+</body>
+
+</html>

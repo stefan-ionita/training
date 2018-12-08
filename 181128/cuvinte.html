@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+
+    <script type="text/javascript">
+        var s = "spatiile plus unu este egal cu nr de cuvinte";
+        var spatiu = " ";
+        var cuvinte = 0;
+        var caracterCurent;
+        var ultim = 1;
+        var nr = 0;
+        var counter = 0;
+        console.log(s);
+        for (var i = 0; i < s.length; i++) {
+            caracterCurent = s.charAt(i);
+            if (caracterCurent == spatiu) {
+                 cuvinte++;
+                
+            }
+        }
+        nr = cuvinte + 1;
+        console.log("Nr. Cuvinte: " + nr);
+    </script>
+
+</body>
+
+</html>

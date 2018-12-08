@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+
+    <script type="text/javascript">
+        var rezultat;
+        var a = 90;
+        var b = 60;
+        var ma = [];
+        var mb = [];
+        
+
+        function cmmdc(a, b) {
+            var i;
+            counter = 0;
+
+            for (i = 0; i < a; i++) {
+                if (a % i == 0) {
+                    //ma[counter++] = i;
+                    ma.push(i);
+                }
+            }
+            counter = 0;
+            for (i = 0; i < b; i++) {
+                if (b % i == 0) {
+                    //mb[counter++] = i;
+                    mb.push(i);
+                }
+            }
+            console.log(ma, mb);
+        }
+        cmmdc(a, b);
+
+        function compare(ma, mb) {
+
+            var finalarray = [];
+            
+            for (var i = 0; i < ma.length; i++) {
+                for (var j = 0; j < mb.length; j++) {
+                    if (ma[i] === mb[j]) {
+                        finalarray.push(ma[i]);
+                    }
+                }
+            }
+                    
+            
+//            ma.forEach((e1) => mb.forEach((e2) => {
+//                //console.log(e1 + '---' + e2);
+//                if (e1 === e2) {
+//                    //finalarray.push = (e1);
+//                    finalarray.push(e1);
+//                }
+//            }            ));
+            return finalarray;
+        }
+
+        rezultat = compare(ma, mb);
+        console.log(rezultat);
+        console.log(Math.max(...rezultat));
+    </script>
+
+</body>
+
+</html>
