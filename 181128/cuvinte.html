@@ -5,23 +5,28 @@
 
 
     <script type="text/javascript">
-        var s = "spatiile plus unu este egal cu nr de cuvinte";
+        var s = "spatiile    plus    unu    ";
+        
         var spatiu = " ";
+        s = spatiu + s;
         var cuvinte = 0;
         var caracterCurent;
-        var ultim = 1;
-        var nr = 0;
-        var counter = 0;
+        var caracterUrmator = 0;
         console.log(s);
-        for (var i = 0; i < s.length; i++) {
+
+        for (var i = 0; i < s.length - 1; i++) {
             caracterCurent = s.charAt(i);
-            if (caracterCurent == spatiu) {
-                 cuvinte++;
-                
+            caracterUrmator = s.charAt(i + 1);
+            if ((caracterCurent == spatiu) && (caracterUrmator != spatiu)) {
+                cuvinte++;
+
             }
         }
-        nr = cuvinte + 1;
-        console.log("Nr. Cuvinte: " + nr);
+        //if (s.charAt[0] != spatiu) {
+        //    cuvinte++;
+        //}
+        console.log("Nr. Cuvinte: " + cuvinte);
+
     </script>
 
 </body>

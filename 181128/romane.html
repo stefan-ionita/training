@@ -3,21 +3,53 @@
 
 <head>
     <script type="text/javascript">
-    var x = 1319;    
-    function romanize(num) {
-      var lookup = {M:1000,CM:900,D:500,CD:400,C:100,XC:90,L:50,XL:40,X:10,IX:9,V:5,IV:4,I:1},
-          roman = '',
-          i;
-      for ( i in lookup ) {
-        while ( num >= lookup[i] ) {
-          roman += i;
-          num -= lookup[i];
+        var n = 1019;
+        var lookup = {
+            1000: "M",
+            900: "CM",
+            800: "DCCC",
+            700: "DCC",
+            600: "DC",
+            500: "D",
+            400: "CD",
+            300: "CCC",
+            200: "CC",
+            100: "C",
+            90: "XC",
+            80: "LXXX",
+            70: "LXX",
+            60: "LX",
+            50: "L",
+            40: "XL",
+            30: "XXX",
+            20: "XX",
+            10: "X",
+            9: "IX",
+            8: "VIII",
+            7: "VII",
+            6: "VI",
+            5: "V",
+            4: "IV",
+            3: "III",
+            2: "II",
+            1: "I",
+            0: ""
         }
-      }
-      return roman;
-    }
-    console.log(romanize(x))   
-        
+        var cm = Math.floor(n % 10000 / 1000);
+        var cs = Math.floor(n % 1000 / 100);
+        var cz = Math.floor(n % 100 / 10);
+        var cu = Math.floor(n % 10);
+        var r = '';
+        var i;
+        for (i = 0; i < cm; i++) {
+            r += lookup[1000];
+        }
+        r+=  lookup[cs * 100];
+        r+=  lookup[cz * 10];
+        r+=  lookup[cu];
+            
+        console.log(r);
+
     </script>
     <meta charset="utf-8">
     <title>Untitled Document</title>

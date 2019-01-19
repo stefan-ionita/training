@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Untitled Document</title>
+<script>
+
+var a = [1, 2, 6, 4, 2, 2, 3, 4, 4, 4, 8, 1, 2, 1, 2];
+var n = 5;
+var b = [];   
+ for ( var i = 0; i < a.length; i++){
+     if (a[i] >= n) {
+       b.push(a[i])               
+     }
+ }
+console.log(b);
+    
+ for ( var i = 0; i < a.length; i++){
+     if (a[i] < n) {
+        a.splice(i,1);
+        i--; /*dupa eliminare unui element ma asigu ca verific noul element de pe acea pozitie*/
+         
+     }
+ }   
+console.log(a);    
+
+    
+a = [1, 2, 6, 4, 2, 2, 3, 4, 4, 4, 8, 1, 2, 1, 2];
+a = a.filter(el => el >= n); 
+console.log(a);
+    
+
+a = [1, 2, 6, 4, 2, 2, 3, 4, 4, 4, 8, 1, 2, 1, 2];
+ for (var i = 0; i < a.length; i++){
+     if (a[i] < n) {
+         for (var j = i; j < a.length - 1; j++) {
+             a[j] = a[j + 1];
+         }
+         a.pop();
+         i--; 
+     }
+ }   
+console.log(a);    
+    
+
+    
+</script>
+</head>
+
+<body>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Untitled Document</title>
+<script>
+
+var a = [1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 5, 2, 1, 6];
+var lungime = 1;
+var index = 0;
+var maxIndex = 0;
+var maxLungime = 0;
+var s = "";    
+s += a[index];
+ for ( var i = 1; i < a.length; i++){
+     if (a[i-1] == a[i]) {
+       lungime++;               
+       s += a[i];
+     } else {
+         if (lungime > maxLungime) {
+             maxLungime = lungime;
+             maxIndex = index;
+         }
+         console.log(s);
+         index = i;
+         lungime = 1;
+         s = "" + a[index];
+         
+     }
+     
+ }
+console.log(s);
+
+console.log(a);        
+console.log(maxIndex, maxLungime);
+    
+for (var j = maxIndex; j < maxLungime + maxIndex; j++){
+    console.log(a[j]);
+}
+    
+</script>
+</head>
+
+<body>
+</body>
+</html>
