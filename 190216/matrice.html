@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Title of the document</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", start);
+
+        function start(event) {
+            var n = 10;
+            var element;
+            var parent = document.createElement("div");
+            parent.className = "parentDiv";
+            document.body.appendChild(parent);
+
+            for (var i = 0; i < n; i++) {
+                for (var j = 0; j < n; j++) {
+                    element = document.createElement("div");
+                    element.className = "mydiv";
+                    
+                    if (i % 2 == 1) {
+                        element.style.background = "blue";
+                    }
+
+                    if( i == j) {
+                        element.style.background = "green";
+                    }
+                    if(i+j+1==n){
+                        element.style.background = "black";  
+                    }    
+
+                    //element.style.marginRight = "10px";
+                    //margin-right -> marginRight
+                    parent.appendChild(element);
+                }
+            }
+        }
+
+
+
+
+
+    </script>
+    <style>
+        .parentDiv {
+            width: 500px;
+            display: inline-block;
+            font-size: 0;
+        }
+        .parentDiv div:nth-child(20n+1),
+        .parentDiv div:nth-child(20n+2), 
+        .parentDiv div:nth-child(20n+2),
+        .parentDiv div:nth-child(20n+3),
+        .parentDiv div:nth-child(20n+4),
+        .parentDiv div:nth-child(20n+5),
+        .parentDiv div:nth-child(20n+6),
+        .parentDiv div:nth-child(20n+7),
+        .parentDiv div:nth-child(20n+8),
+        .parentDiv div:nth-child(20n+9),
+        .parentDiv div:nth-child(20n+10) {
+            background: yellow;
+        }
+        .mydiv {
+            background: red;
+            width: 50px;
+            height: 50px;
+            display:inline-block;
+        }
+    </style>
+</head>
+
+<body>
+
+</body>
+
+</html>

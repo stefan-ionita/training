@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+
+<head>
+    <script type="text/javascript">
+        var n = 5;
+        var m = 123;
+
+        function divizoriPrimi(n) {
+            var r = 2;
+            var count = 0;
+            var a = [];
+            while (n > 1) {
+                count = 0;
+                while (n % r == 0) {
+                    count++;
+                    n = n / r;
+                }
+                //console.log(r, count);
+                if (count != 0) {
+                    a.push({
+                        numar: r,
+                        putere: count
+                    })
+                }
+                r++;
+            }
+            return a;
+        }
+
+        var v1 = divizoriPrimi(n);
+        var v2 = divizoriPrimi(m);
+        var suma = 1;
+        var factor;
+        var putere;
+        var hashMap = {};
+        for (var i = 0; i < v1.length; i++) {
+            hashMap[v1[i].numar] = v1[i].putere;
+        }
+        console.log("valorile din v1: ", JSON.stringify(hashMap));
+        for (var i = 0; i < v2.length; i++) {
+            factor = v2[i].numar;
+            putere = v2[i].putere;
+            if (hashMap[factor]) {
+                if (putere > hashMap[factor]) {
+                    hashMap[factor] = putere;
+                }
+            } else {
+                hashMap[factor] = putere;
+            }
+        }
+        
+        for (var s in hashMap) {
+            console.log(s, hashMap[s]);
+            suma *= Math.pow(parseInt(s), hashMap[s]);
+        }
+
+        console.log("dupa valorile din v2s: ", JSON.stringify(hashMap));
+        console.log(suma);
+        //	 
+        //[
+        //    {
+        //        numar: 2
+        //        putere: 3
+        //    },
+        //    {
+        //        numar: 3
+        //        putere: 4
+        //    },
+
+
+        //]
+
+    </script>
+    <meta charset="utf-8">
+    <title>Untitled Document</title>
+</head>
+
+<body>
+</body>
+
+</html>

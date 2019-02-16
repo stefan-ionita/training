@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Title of the document</title>
+    <style>
+        div {
+            display: inline-block;
+            font-size: 0;
+        }
+
+        .button {
+            font-size: 14px;
+            display: block;
+            width: 100px;
+            padding: 5px;
+            background: blue;
+            color: #fff;
+        }
+
+        .dead {
+            width: 20px;
+            height: 20px;
+            border: 1px solid grey;
+            box-sizing: border-box;
+            background: black;
+        }
+
+        .alive {
+            width: 20px;
+            height: 20px;
+            background: yellow;
+            box-sizing: border-box;
+            border: 1px solid grey;
+        }
+    </style>
+    <script>
+        /**
+         * read this: http://javascript.info/mouse-events-basics
+         */
+        document.addEventListener("DOMContentLoaded", start);
+        var n = 30;
+        var m = 30;
+        var gameBoard = [];
+        var nextBoard = [];
+        var numarGeneratie = 0;
+        var divMatrix = [];
+        var play = false;
+        var interval;
+
+        function start(event) {
+
+            // creez matricele model
+            for (var i = 0; i < n; i++) {
+                gameBoard[i] = [];
+                nextBoard[i] = [];
+                for (var j = 0; j < m; j++) {
+                    gameBoard[i][j] = 0;
+                    nextBoard[i][j] = 0;
+                }
+            }
+
+            // desenez elementele in dom pe care le modific apoi cu function draw
+            // pun matricea pe ecran
+            var element;
+            var parent = document.createElement("div");
+            parent.className = "parentDiv";
+            parent.style.width = (m * 20) + "px"
+            document.body.appendChild(parent);
+
+            for (var i = 0; i < n; i++) {
+                divMatrix[i] = [];
+                for (var j = 0; j < m; j++) {
+                    element = document.createElement("div");
+                    element.addEventListener("click", squareClick);
+                    element.id = i + "-" + j;
+                    divMatrix[i][j] = element;
+                    if (gameBoard[i][j] == 0) {
+                        element.className = "dead";
+                    } else {
+                        element.className = "alive";
+                    }
+                    parent.appendChild(element);
+                }
+            }
+
+            setInterval(nextGen, 500);
+            addListeners();
+        }
+
+        function squareClick(event) {
+            var a;
+            var b;
+            if (numarGeneratie % 2 == 0) {
+                a = gameBoard;
+                b = nextBoard;
+            } else {
+                a = nextBoard;
+                b = gameBoard;
+            }
+            // voi face modificarile in matricea a fiindca matricea a este cea de pe ecran
+            // modific matricea model
+            var aux = this.id.split("-");
+            var i = parseInt(aux[0]);
+            var j = parseInt(aux[1]);
+            //a[i][j] = !a[i][j]; este la fel ca iful de mai jos
+            if (a[i][j] == 0) {
+                a[i][j] = 1;
+                this.className = "alive";
+            } else {
+                a[i][j] = 0;
+                this.className = "dead";
+            }
+            console.log(a);
+        }
+
+        function addListeners() {
+            var button = document.getElementsByClassName("button")[0];
+            var play = document.getElementsByClassName("button")[1];
+            button.addEventListener("click", nextClick);
+            play.addEventListener("click", playClick);
+            button.addEventListener("mouseover", buttonOver);
+            button.addEventListener("mouseout", buttonOut);
+        }
+
+        function playClick() {
+            if (!play) {
+                interval = setInterval(nextGen, 500);
+            } else {
+                clearInterval(interval);
+            }
+
+            play = !play;
+        }
+
+        function nextClick() {
+            nextGen();
+        }
+
+        function buttonOver() {
+            this.style.background = "red";
+        }
+
+
+        /**
+         * 
+         * read this: http://javascript.info/bubbling-and-capturing
+         */
+        function buttonOut() {
+            this.style.background = "blue";
+            //event.currentTarget
+        }
+
+        /**
+         * 
+         * modifica matricea desenata pe ecran 
+         * 
+         */
+        function draw(matrix) {
+            var element;
+            for (var i = 0; i < n; i++) {
+                for (var j = 0; j < m; j++) {
+                    element = divMatrix[i][j]
+                    if (matrix[i][j] == 0) {
+                        element.className = "dead";
+                    } else {
+                        element.className = "alive";
+                    }
+                }
+            }
+        }
+
+        /**
+         * aceasta functie aplica urmatoarele reguli
+         * For a space that is 'populated':
+                Each cell with one or no neighbors dies, as if by solitude.
+                Each cell with four or more neighbors dies, as if by overpopulation.
+                Each cell with two or three neighbors survives.
+            For a space that is 'empty' or 'unpopulated'
+                Each cell with three neighbors becomes populated.
+            pentru aplicarea regullilor folosesc variabila s in care tin o suma a valorilor celulelor vecine
+
+
+            a matricea pentru generatia veche
+            b este matricea pentru generatia noua
+         * */
+        function nextGen() {
+            console.log("nextGen");
+            var s;
+            var a;
+            var b;
+            if (numarGeneratie % 2 == 0) {
+                a = gameBoard;
+                b = nextBoard;
+            } else {
+                a = nextBoard;
+                b = gameBoard;
+            }
+
+            for (var i = 0; i < n; i++) {
+                for (var j = 0; j < m; j++) {
+                    s = 0;
+                    if (a[i - 1] && a[i - 1][j - 1]) {
+                        s += a[i - 1][j - 1];
+                    }
+                    if (a[i - 1]) {
+                        s += a[i - 1][j];
+                    }
+                    if (a[i - 1]) {
+                        s += a[i - 1][j + 1];
+                    }
+                    if (a[i][j - 1] != undefined) {
+                        s += a[i][j - 1];
+                    }
+                    if (a[i][j + 1]) {
+                        s += a[i][j + 1];
+                    }
+                    if (a[i + 1] && a[i + 1][j - 1]) {
+                        s += a[i + 1][j - 1];
+                    }
+                    if (a[i + 1]) {
+                        s += a[i + 1][j];
+                    }
+                    if (a[i + 1] && a[i + 1][j + 1]) {
+                        s += a[i + 1][j + 1];
+                    }
+
+                    if (a[i][j] == 0) {
+                        if (s == 3) {
+                            b[i][j] = 1;
+                        } else {
+                            b[i][j] = 0;
+                        }
+                    } else {
+                        if (s <= 1) {
+                            b[i][j] = 0;
+                        }
+                        if (s >= 4) {
+                            b[i][j] = 0;
+                        }
+                        if (s == 2 || s == 3) {
+                            b[i][j] = 1;
+                        }
+                    }
+
+
+                }
+            }
+            numarGeneratie++;
+            draw(b);
+            console.log(a, b);
+        }
+
+        // nu am folosit functia asta
+        function printMatrix() {
+            var s = "";
+            for (var i = 0; i < n; i++) { // parcurg liniile
+                for (var j = 0; j < m; j++) { // parcurg coloanele
+                    s += gameBoard[i][j];
+                }
+                s += "\n";// new line pt stringuri (<br/>)
+            }
+            console.log(s);
+        }
+
+    </script>
+    <style>
+        .parentDiv {
+            width: 1000px;
+            display: inline-block;
+            font-size: 0;
+        }
+
+        .mydiv {
+            background: red;
+            width: 50px;
+            height: 50px;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="button">
+        next
+    </div>
+
+    <div class="button">
+        play
+    </div>
+
+</body>
+
+</html>

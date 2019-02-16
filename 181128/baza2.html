@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+
+    <script type="text/javascript">
+        var a = 75;
+        var b = 0;
+        var r = 0;
+        var rest = 0;
+        var invers = 0;
+        while (a) {
+            b = Math.floor(a / 2);
+            r = r * 10 + (a % 2);
+            a = b;
+        }
+        console.log(r);
+
+        while (r) {
+            rest = Math.floor(r % 10);
+            invers = invers * 10 + rest;
+            r = Math.floor(r / 10);
+        }
+        console.log(invers);
+
+
+        var bazaZece = 0;
+        var counter = 0;
+        while (invers) {
+            rest = Math.floor(invers % 10);
+            bazaZece += rest * Math.pow(2, counter);
+            counter++;
+            invers = Math.floor(invers / 10);
+        }
+        console.log(bazaZece);
+
+    </script>
+
+</body>
+
+</html>
