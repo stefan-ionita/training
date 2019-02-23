@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Title of the document</title>
+    <style>
+        .sidebar {
+            padding: 20px;
+            background: orange;
+            color: #000;
+            letter-spacing: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            position: fixed;
+            left: -110px;
+            top: 20%;
+            display: inline-block;
+            transition:all ease .3s;
+        }
+
+        .sidebar-button {
+            writing-mode: vertical-rl;
+            text-orientation: upright;
+            display: inline-block;
+            vertical-align: top;
+            cursor: pointer;
+        }
+
+        ul {
+            display: inline-block;
+            vertical-align: top;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #fff;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+    </style>
+    <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", start);
+        //$("document").ready(start);
+        var sidebar;
+        var sidebarButton;
+        var expanded = false;
+        function start() {
+            sidebar = document.getElementsByClassName("sidebar")[0];
+            sidebarButton = document.getElementsByClassName("sidebar-button")[0];
+            sidebarButton.addEventListener("click", sidebarButtonClick);
+        }
+
+        function sidebarButtonClick() {
+            if (expanded) {
+                sidebar.style.left = "-110px";
+                expanded = false;
+            } else {                
+                sidebar.style.left = "0";
+                expanded = true;
+            }
+      
+        }
+
+
+
+    </script>
+
+<body>
+    <div class="sidebar">
+        <ul>
+            <li>item 1</li>
+            <li>item 2</li>
+            <li>item 3</li>
+            <li>item 4</li>
+            <li>item 5</li>
+            <li>item 6</li>
+            <li>item 7</li>
+            <li>item 8</li>
+        </ul>
+        <div class="sidebar-button">SIDEBAR</div>
+    </div>
+</body>
+
+</html>

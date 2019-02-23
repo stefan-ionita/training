@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Title of the document</title>
+    <style>
+        ul {
+            display: inline-block;
+            position: relative;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+
+        }
+
+        ul li {
+            display: inline-block;
+            padding: 10px 15px;
+            text-transform: uppercase;
+            background: orange;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            cursor: pointer;
+            color: #fff;
+            position: relative;
+        }
+
+        li:hover {
+            background: black;
+        }
+
+        .submenu {
+            position: absolute;
+            top: 40px;
+            left: 0;
+            display:none;
+        }
+        .submenu .dropdown .submenu {
+            left:100%; width: 100%; top:0px;
+        }
+        .submenu li {
+            display: block;
+            background: #a56f0d;
+        }
+
+        .submenu li:hover {
+            background: black;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", start);
+        var item1;
+        var item5;
+        function start(event) {
+            // item1 = document.getElementsByClassName("item1")[0];
+            // item5 = document.getElementsByClassName("item5")[0];
+
+            // item1.addEventListener("mouseover", itemMouseOver);
+            // item1.addEventListener("mouseout", itemMouseOut);
+
+            // item5.addEventListener("mouseover", itemMouseOver);
+            // item5.addEventListener("mouseout", itemMouseOut);
+
+            var items = document.getElementsByClassName("dropdown");
+            for (var i = 0; i < items.length;i++){
+                items[i].addEventListener("mouseover", itemMouseOver);
+                items[i].addEventListener("mouseout", itemMouseOut);
+            }
+        }
+        function itemMouseOver(e){
+            e.currentTarget.getElementsByClassName("submenu")[0].style.display = "inline-block";
+            console.log("target", e.target)
+        }
+        function itemMouseOut(e){
+            e.currentTarget.getElementsByClassName("submenu")[0].style.display = "none";
+        }
+
+    </script>
+
+<body>
+    <ul class="menu">
+        <li class="dropdown">menu item 1
+            <ul class="submenu">
+                <li>menu item 1</li>
+                <li>menu item 2</li>
+                <li>menu item 3</li>
+                <li>menu item 4</li>
+                <li>menu item 5</li>
+                <li class="dropdown">menu item 6
+                        <ul class="submenu">
+                                <li>menu item 1</li>
+                                <li>menu item 2</li>
+                                <li>menu item 3</li>
+                                <li>menu item 4</li>
+                                <li>menu item 5</li>
+                                <li>menu item 6</li>
+                            </ul>
+                </li>
+            </ul>
+        </li>
+        <li>menu item 2</li>
+        <li>menu item 3</li>
+        <li>menu item 4</li> 
+        <li class="dropdown">menu item 5
+                <ul class="submenu">
+                    <li>menu item 1</li>
+                    <li>menu item 2</li>
+                    <li>menu item 3</li>
+                    <li>menu item 4</li>
+                    <li>menu item 5</li>
+                    <li>menu item 6</li>
+                </ul>
+            </li>
+        <li>menu item 6</li>
+    </ul>
+</body>
+
+</html>

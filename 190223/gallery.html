@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Title of the document</title>
+    <style>
+        /* CE FACE SUBTR?
+        FA CODUL IN JQUERY
+        NAVIGARE - BULLET POINTS 
+        PE BUTTON CLICK FOLOSESTE ACEEASI FORMULA CARE MUTA IMAGINILE (DIN FUNCTIOA moveImage)
+        Schimba tranzitia in fade din slide
+        */
+        .gallery {
+            background: black;
+            overflow: hidden; font-size:0;
+        }
+
+        .imagesContainer {
+            display: inline-block; position: relative; transition: .4s left;
+            left:0;
+        }
+
+        .imageContainer { position: absolute;}
+
+        .imageContainer img {
+            max-width: 100%; max-height: 100%;
+        }
+    </style>
+    <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", start);
+        //$("document").ready(start); (how to creadte dom element with jquery)
+        var images = ["images/1.jpg", "images/2.jpg", "images/3.jpg", "images/4.jpg", "images/5.jpeg", "images/6.jpg", "images/7.jpg", "images/8.jpg"];
+        var galleryWidth = 700;
+        var galleryHeight = 400;
+        var galleryDiv;
+        var currentImage = 0;
+        function start() {
+            createGallery();
+            loadImages();
+            startAnimation();
+        }
+
+        function startAnimation () {
+            setInterval(moveImage,700);
+        }
+
+        function moveImage() {
+            currentImage++;
+            if (currentImage > images.length - 1){
+                currentImage = 0;
+            }
+            imagesContainer.style.left = `${-1 * currentImage * galleryWidth}px`;
+        }
+        function createGallery() {
+            galleryDiv = document.createElement("div");
+            galleryDiv.style.width = `${galleryWidth}px`; // js template string de cautat pe net
+            galleryDiv.style.height = galleryHeight + "px";
+            galleryDiv.className = "gallery";
+            document.body.appendChild(galleryDiv);
+            imagesContainer = document.createElement("div");
+            imagesContainer.className = "imagesContainer";
+            galleryDiv.appendChild(imagesContainer);
+            document.body.appendChild(galleryDiv);
+        }
+
+        function loadImages() {
+            var imageContainer;
+            var image
+            for (var i = 0; i < images.length; i++) {
+                imageContainer = document.createElement("div");
+                imageContainer.style.width = `${galleryWidth}px`;
+                imageContainer.style.height = `${galleryHeight}px`;
+                imageContainer.style.display = "inline-block";
+                imageContainer.className = "imageContainer";
+                imageContainer.style.left = `${i * galleryWidth}px`;
+                image = new Image();
+                image.addEventListener("load", imageLoaded);
+                imageContainer.appendChild(image);
+                imagesContainer.appendChild(imageContainer);
+                image.src = images[i];
+            }
+        }
+
+        function imageLoaded(event) {
+            var width = this.width;
+            var height = this.height;
+            this.style.position ="absolute";
+            this.style.left = `${galleryWidth / 2 - width / 2}px`;
+            this.style.top = `${galleryHeight / 2 - height / 2}px`;
+
+            // if (width > galleryWidth || height > galleryHeight) {
+            //     var ratioW = galleryWidth / this.width;
+            //     var ratioH = galleryHeight / this.height;
+
+            //     var ratio = Math.min(ratioW, ratioH);
+
+            //     this.width = width * ratio;
+            //     this.height = height * ratio;
+            // }
+        }
+        
+
+
+    </script>
+
+<body>
+    <!--<div class="gallery"></div>-->
+</body>
+
+</html>
