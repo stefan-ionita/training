@@ -36,7 +36,7 @@
         var galleryHeight = 400;
         var galleryDiv;
         var currentImage = 0;
-		var imageContainer = document.getElementsByClassName("imageContainer");
+		
         function start() {
             createGallery();
             loadImages();
@@ -44,14 +44,27 @@
         }
 
         function startAnimation () {
-            setInterval(fadeImage,400);
+            setInterval(fadeImage,1000);
         }
 
 		
-        function fadeImage() {			
-			for (var i = 0; i < images.length; i++) {
+        function fadeImage() {	
+		var imageContainer = document.getElementsByClassName("imageContainer")[currentImage];		
+		var previous = document.getElementsByClassName("imageContainer")[currentImage - 1];
+		var next = document.getElementsByClassName("imageContainer")[currentImage + 1];	
+			currentImage++;
+            if (currentImage > images.length - 1){
+                currentImage = 0;
+            	imageContainer.style.opacity = "1"; 
+				if ( currentImage == images.length - 1){
+				imageContainer.style.opacity = "0"; 
+				}
+            }
+			
+			
+			previous.style.opacity = "0"; 
             imageContainer.style.opacity = "1"; 
-			}
+			next.style.opacity = "0"; 
         }
 //        function moveImage() {
 //            currentImage++;
