@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Title of the document</title>
+
+    <script>
+        // Animatie pe height. Adica height = 0 --> height 100%
+        var model = [
+            {
+                name: "ana",
+                value: false,
+                body: "Lorem Ipsum"
+            },
+            {
+                name: "george",
+                value: false,
+                body: "Lorem Ipsum"
+            },
+            {
+                name: "ion",
+                value: false,
+                body: "Lorem Ipsum"
+            },
+            {
+                name: "vasile",
+                value: false,
+                body: "Lorem Ipsum"
+            },
+            {
+                name: "maria",
+                value: false,
+                body: "Lorem Ipsum"
+            }
+        ];
+        document.addEventListener("DOMContentLoaded", start);
+        function start() {
+            var checkbox = document.getElementsByClassName("customCheckbox")[0];
+            var clone;
+            var itemText;
+            var itemAcc;
+            for (i = 0; i < model.length; i++) {
+                clone = checkbox.cloneNode(true);
+                itemText = clone.getElementsByClassName("itemText")[0];
+                itemText.innerHTML = model[i].name;                                
+                itemAcc = clone.getElementsByClassName("accordionBody")[0];                
+                itemAcc.innerHTML = model[i].body;
+                document.body.appendChild(clone);
+                clone.id = "c" + i;
+                clone.addEventListener("click", checkboxClick);
+                document.body.appendChild(clone);
+            }
+            checkbox.remove();
+        }
+
+        function checkboxClick(event) {
+            //     console.log("event.target", event.target);
+            //     console.log("event.currentTarget", event.currentTarget);
+            var btn;
+            var item;
+            var accordion;
+            for (i = 0; i < model.length; i++) {// parcurgem modelul 
+                item = document.getElementById("c" + i); // targetam divurile cu iduri c*
+                btn = item.getElementsByClassName("button")[0];
+                accordion = item.getElementsByClassName("accordionBody")[0];
+                btn.classList.remove("button-selected");                               
+                accordion.style.height = "0";                
+                accordion.style.fontSize = "0";
+                accordion.style.visibility = 'hidden';
+                accordion.style.padding = "0";
+                model[i].value = false;
+            }
+
+            var id = parseInt(event.currentTarget.id.substr(1));
+            btn = event.currentTarget.getElementsByClassName("button")[0];
+            model[id].value = true;
+            btn.classList.add("button-selected");
+            accordion = event.currentTarget.getElementsByClassName("accordionBody")[0];            
+            accordion.style.visibility = 'visible';
+            accordion.style.height = "100px";
+            accordion.style.fontSize = "16px";
+            accordion.style.padding = "16px";
+            console.log(model);
+
+        }
+
+    </script>
+    <style>
+        .customCheckbox {
+            display: block;
+            align-items: center;
+            background: red;
+            padding: 10px;
+            width: 250px;
+            margin-bottom: 10px;
+            transition: all ease .3s;
+            cursor: pointer;
+            height: 100%;
+        }
+
+        .customCheckbox:hover {
+            background: orange;
+        }
+
+        .customCheckbox:hover .button {
+            border-color: #fff;
+        }
+
+        .button {
+            display: inline-block;
+            vertical-align: middle;
+            width: 40px;
+            height: 40px;
+            background: black;
+            border: 1px solid red;
+            cursor: pointer;
+        }
+
+        .button-selected {
+            display: inline-block;
+            vertical-align: middle;
+            width: 40px;
+            height: 40px;
+            background: green;
+            border: 1px solid red;
+        }
+
+        .itemText {
+            display: inline-block;
+            font-size: 20px;
+            font-weight: bold;
+            font-family: Verdana, Helvetica, sans-serif;
+            text-transform: uppercase;
+            color: #fff;
+            padding: 0 20px;
+            cursor: pointer;
+        }
+
+        .accordionBody {
+            height: 0; 
+            box-sizing: border-box;
+            width: 100%;
+            font-size: 0; 
+            transition: all ease .5s;
+            background: #ccc;
+            padding: 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="customCheckbox">
+        <div class="button"></div>
+        <div class="itemText">text</div>
+        <div class="accordionBody"></div>
+    </div>
+</body>
+
+</html>
