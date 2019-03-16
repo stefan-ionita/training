@@ -1,0 +1,12 @@
+var c = 10;
+function a() {
+	console.log(this);
+	console.log(this.c);
+}
+
+var b = {
+ c: 15
+}
+a();
+var x = a.bind(b);
+x();

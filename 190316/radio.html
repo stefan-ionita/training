@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Title of the document</title>
+    <script src="jquery-3.3.1.min.js" type="text/javascript"></script>
+
+    <style>
+        .customCheckbox {
+            display: flex;
+            align-items: center;
+            background: red;
+            padding: 10px;
+            width: 250px;
+            margin-bottom: 10px;
+            transition: all ease .3s;
+            cursor: pointer;
+        }
+
+        .customCheckbox:hover {
+            background: orange;
+        }
+
+        .customCheckbox:hover .button {
+            border-color: #fff;
+        }
+
+        .button {
+            display: inline-block;
+            vertical-align: middle;
+            width: 40px;
+            height: 40px;
+            background: black;
+            border: 1px solid red;
+            cursor: pointer;
+        }
+
+        .button-selected {
+            display: inline-block;
+            vertical-align: middle;
+            width: 40px;
+            height: 40px;
+            background: green;
+            border: 1px solid red;
+        }
+
+        .itemText {
+            display: inline-block;
+            font-size: 20px;
+            font-weight: bold;
+            font-family: Verdana, Helvetica, sans-serif;
+            text-transform: uppercase;
+            color: #fff;
+            padding: 0 20px;
+            cursor: pointer;
+        }
+        .div2 {
+            margin-top:60px;
+        }
+    </style>
+    <script>
+        (function ($) {
+            $.fn.radio = function (model_param) {
+                var model = model_param;
+                var customCheckbox;
+                var itemText;
+                var button;
+
+                for (i = 0; i < model.length; i++) {
+                    customCheckbox = document.createElement("div");
+                    customCheckbox.className = "customCheckbox"; 
+                    customCheckbox.setAttribute("data-customid", "c" + i);                   
+                    customCheckbox.classList.add("c" + i);
+                    customCheckbox.addEventListener("click", checkboxClick.bind(this));
+
+                    button = document.createElement("div");
+                    button.className = "button";
+
+                    itemText = document.createElement("div");
+                    itemText.className = "itemText";
+                    itemText.innerHTML = model[i].name;
+
+                    customCheckbox.appendChild(button);
+                    customCheckbox.appendChild(itemText);
+
+                    this.append(customCheckbox);
+
+                }
+                function checkboxClick(event) {
+                    var btn;
+                    var item;
+                    for (i = 0; i < model.length; i++) {// parcurgem modelul 
+                        item = this[0].getElementsByClassName("c" + i)[0]; // targetam divurile cu iduri c*
+                        btn = item.getElementsByClassName("button")[0];
+                        btn.classList.remove("button-selected");
+                        model[i].value = false;
+                    }
+
+                    var id = parseInt(event.currentTarget.getAttribute("data-customid").substr(1));
+                    btn = event.currentTarget.getElementsByClassName("button")[0];
+                    model[id].value = true;
+                    btn.classList.add("button-selected");
+
+
+                    console.log(model);
+                }
+
+            };
+        })(jQuery);
+
+
+        document.addEventListener("DOMContentLoaded", start);
+        var model = [
+                    {
+                        name: "ana",
+                        value: false
+                    },
+                    {
+                        name: "george",
+                        value: false
+                    },
+                    {
+                        name: "ion",
+                        value: false
+                    },
+                    {
+                        name: "vasile",
+                        value: false
+                    },
+                    {
+                        name: "maria",
+                        value: false
+                    }
+                ];
+                var model2 = [
+                    {
+                        name: "ana",
+                        value: false
+                    },
+                    {
+                        name: "george",
+                        value: false
+                    }
+                ];        
+        function start() {
+            $(".div1").radio(model);
+            $(".div2").radio(model2);
+        }
+    </script>
+</head>
+
+<body>
+    <div class="div1"></div>
+    <div class="div2"></div>
+</body>
+
+</html>
