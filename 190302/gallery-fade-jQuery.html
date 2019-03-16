@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Title of the document</title>
+	<style>
+		/* CE FACE SUBTR?
+        FA CODUL IN JQUERY
+        NAVIGARE - BULLET POINTS 
+        PE BUTTON CLICK FOLOSESTE ACEEASI FORMULA CARE MUTA IMAGINILE (DIN FUNCTIOA moveImage)
+        Schimba tranzitia in fade din slide
+        */
+		.gallery {
+			background: black; position: relative;
+			font-size: 0;
+		}
+
+		.imagesContainer {
+			display: block;
+			position: relative;
+			transition: .4s left;
+		}
+
+		.imageContainer {
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			left: 0;
+			top: 0;
+			transition: opacity 1s;
+		}
+
+		.imageContainer img {
+			max-width: 100%;
+			max-height: 100%;
+			display: block;
+		}
+		.navDots { text-align: center; padding: 0; margin: 0; position: absolute; left:0; bottom:-40px; width:100%;
+		}
+		.navDots li { 
+			cursor: pointer;
+			width:19px; 
+			height:19px; 
+			border-radius: 50%; 
+			background: #000; 
+			display:inline-block; 
+			margin:5px;
+		}
+		.navDots li:hover {background:red;}
+	</style>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+	<script type="text/javascript">
+		$ = jQuery;
+
+		$(document).ready(function () {
+			"use strict";
+			var images = ["images/1.jpg", "images/2.jpg", "images/3.jpg", "images/4.jpg", "images/5.jpeg", "images/6.jpg", "images/7.jpg", "images/8.jpg"];
+			var galleryWidth = 700;
+			var galleryHeight = 400;
+			var currentImage = 0;
+
+			function createGallery() {
+				$("body").prepend('<div class="gallery"></div>');
+				var galleryDiv = $(".gallery");
+				galleryDiv.css({
+					width: galleryWidth + "px",
+					height: galleryHeight + "px"
+				});
+				$(".gallery").prepend('<div class="imagesContainer"></div>');
+
+			}
+
+			var imagesContainer = $(".imagesContainer");
+
+			createGallery();
+
+			
+			/*************Load Images***************/			
+			$.each(images, function (i, val) {
+				$("<img />").attr("src", val).appendTo($(".imagesContainer"));
+			});
+			var img = $("html").find("img");
+			
+			
+			$(".gallery").append('<ul class="navDots"></ul>');
+			
+			setTimeout(function() {
+				 $("html").find("img").each(function(){
+					var newDot = $('.navDots').append('<li></li>');
+					var width = $(this).width();
+					var height = $(this).height();
+
+					$(this).css({
+						position: "absolute",
+						left: galleryWidth / 2 - width / 2 + "px",
+						top: galleryHeight / 2 - height / 2 + "px"
+					});
+					 
+				  
+				})
+
+			}, 1000);
+			
+			
+
+
+
+		
+		
+			img.wrap("<div class='imageContainer'></div>");
+			
+
+
+			var imageContainer = $(".imageContainer");
+
+
+			imageContainer.css({
+				width: galleryWidth + "px",
+				height: galleryHeight + "px",
+				display: "inline-block",
+				opacity: "0",
+			});
+			
+			function fadeImage() {
+
+				var imageContainer = $("html").find(".imageContainer")[currentImage];
+				//$("html").css("background-color", "blue");
+				//console.log(imageContainer);
+				$(imageContainer).css({	
+					"opacity": "0"
+				})
+				$(imageContainer).attr("id", ("img"+ currentImage));
+				$(imageContainer).removeClass("active");
+				//// pana aici am facut imaginea precedenta transparenta
+				currentImage++;
+				if (currentImage > images.length - 1) {
+					currentImage = 0;
+				}
+				// am verificat ca raman in limitele impuse
+				imageContainer = $("html").find(".imageContainer")[currentImage];
+				$(imageContainer).css({	
+					"opacity": "1"
+				});
+				$(imageContainer).addClass("active");
+			}
+			
+			var dots = $("html").find(".navDots li");
+			var active = $("html").find(".active");
+			var imageContainer = $("html").find(".imageContainer");
+			
+			$(dots).bind('click', function(){
+        
+				var index = $(this).index() + 1;
+
+				$(active).fadeOut(300);
+
+				$("#img" + index).fadeIn(300);        
+				$(imageContainer).removeClass("active");
+				$("#img" + index).addClass("active");
+			});			   
+					
+			
+
+			function startAnimation() {		
+				setInterval(fadeImage, 2000);
+			}
+
+			startAnimation();
+
+		});
+		
+
+//		$(window).on("load", function (e) {
+//
+//			//var img = $("html").find("img");
+//			
+//			console.log($("html").find("img") );
+//			
+//			$("html").find("img").each(function(){
+//				
+//				var width = $(this).width();
+//				var height = $(this).height();
+//				
+//				console.log('width: ' + width );
+//				
+//				$(this).css({
+//					position: "absolute",
+//					left: galleryWidth / 2 - width / 2 + "px",
+//					top: galleryHeight / 2 - height / 2 + "px"
+//				});
+//			})
+//			
+//		}); De ce nu ruleaza functia onload?????
+		
+	</script>
+
+</head>
+
+<body>
+</body>
+
+</html>
