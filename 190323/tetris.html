@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tetris</title>
+    <script>
+
+        // setInterval | clearInterval
+        // setTimeout | clearTimeout
+        // requestAnimationFrame | cancelAnimationFrame
+        document.addEventListener("DOMContentLoaded", start);
+        var lines = 15;
+        var columns = 7;
+        var model = [];
+        var divMatrix = [];
+        var sqWidth = 25;
+        var containerDiv;
+        var gameInterval;
+        var selectedSquare;
+        var rightKeyIsDown = false;
+        var leftKeyIsDown = false;
+        var downKeyIsDown = false;
+        var frame;
+
+
+
+        function start() {
+            generateBoard();
+            addKeyListeners();
+            startGame();
+        }
+
+        function addKeyListeners() {
+            document.body.addEventListener("keydown", keyDownListener);
+            document.body.addEventListener("keyup", keyUpListener);
+        }
+
+
+        function keyDownListener(e) {
+            //debugger;
+            switch (e.code) {
+                case "ArrowRight":
+                    rightKeyIsDown = true;
+                    break;
+
+                case "ArrowLeft":
+                    leftKeyIsDown = true;
+                    break;
+                case "ArrowDown":
+                    downKeyIsDown = true;
+                    break;
+
+            }
+        }
+
+        function keyUpListener(e) {
+            switch (e.code) {
+                case "ArrowRight":
+                    rightKeyIsDown = false;
+                    break;
+
+                case "ArrowLeft":
+                    leftKeyIsDown = false;
+                    break;
+                case "ArrowDown":
+                    downKeyIsDown = false;
+                    break;
+            }
+
+
+        }
+
+        function updateForkeyPress() {
+            if (rightKeyIsDown) {
+                if (selectedSquare.j < columns - 1 && model[selectedSquare.i][selectedSquare.j + 1] === 0) {
+                    model[selectedSquare.i][selectedSquare.j] = 0;
+                    selectedSquare.j++;
+                    model[selectedSquare.i][selectedSquare.j] = 1;
+                    drawMatrix();
+                }
+            }
+            if (leftKeyIsDown) {
+                if (selectedSquare.j > 0 && model[selectedSquare.i][selectedSquare.j - 1] === 0) {
+                    model[selectedSquare.i][selectedSquare.j] = 0;
+                    selectedSquare.j--;
+                    model[selectedSquare.i][selectedSquare.j] = 1;
+                    drawMatrix();
+                }
+            }
+            if (downKeyIsDown) {
+                moveSquareDown();
+            }
+            frame = setTimeout(updateForkeyPress, 80);
+        }
+
+
+        function startGame() {
+            generateFullSquare();
+            gameInterval = setInterval(gameLoop, 100);
+            frame = setTimeout(updateForkeyPress, 80);
+        }
+
+        function generateFullSquare() {
+            if (model[0][3] == 1) {
+                resetGame();
+            }
+            selectedSquare = { i: 0, j: 3 };
+            model[selectedSquare.i][selectedSquare.j] = 1;
+        }
+        function resetGame() {
+            clearInterval(gameInterval);
+            for (var i = 0; i < lines; i++) {
+                for (var j = 0; j < columns; j++) {
+                    divMatrix[i][j].classList.remove("full");
+                    model[i][j] = 0;
+                }
+            }
+            startGame();
+        }
+
+        function verifyLastLine() {
+            var numberOfOnes = 0;
+            for (var j = 0; j < columns; j++) {
+                if (model[lines - 1][j] == 1) {
+                    numberOfOnes++;
+                }
+
+            }
+            if (numberOfOnes == columns) {
+                for (var i = lines - 1; i > 0; i--) {
+                    for (var j = 0; j < columns; j++) {
+                        model[i][j] = model[i - 1][j];
+                    }
+                }
+            }
+        }
+
+        function moveSquareDown() {
+            if (selectedSquare.i == model.length - 1) {
+                verifyLastLine();
+                generateFullSquare();
+                drawMatrix();
+                return;
+            }
+            //testul de patrat sub patratul curent   
+            if (model[selectedSquare.i + 1][selectedSquare.j] == 1) {
+                generateFullSquare();
+                drawMatrix();
+                return;
+            }
+
+            model[selectedSquare.i][selectedSquare.j] = 0;
+            selectedSquare.i++;
+            model[selectedSquare.i][selectedSquare.j] = 1;
+        }
+        function gameLoop() {
+            // testul de margin jos
+            moveSquareDown();
+            drawMatrix();
+        }
+
+        function drawMatrix() {
+            for (var i = 0; i < lines; i++) {
+                for (var j = 0; j < columns; j++) {
+                    if (model[i][j] == 1) {
+                        divMatrix[i][j].classList.add("full");
+                    } else {
+                        divMatrix[i][j].classList.remove("full");
+                    }
+                }
+            }
+        }
+
+        function generateBoard() {
+            containerDiv = document.createElement("div");
+            var body = document.body;
+            var square;
+            containerDiv.className = "containerDiv";
+            body.appendChild(containerDiv);
+            for (var i = 0; i < lines; i++) {
+                model[i] = []; // fiecare model de "i" va fi si el un vector
+                divMatrix[i] = [];
+                for (var j = 0; j < columns; j++) {
+                    model[i][j] = 0;
+                    square = document.createElement("div");
+                    divMatrix[i][j] = square;
+                    square.id = `${i}-${j}`;
+                    square.className = "square";
+                    square.style.width = `${sqWidth}px`;
+                    square.style.height = `${sqWidth}px`;
+                    square.style.top = `${i * sqWidth}px`;
+                    square.style.left = `${j * sqWidth}px`;
+                    containerDiv.appendChild(square);
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .containerDiv {
+            position: relative;
+        }
+
+        .square {
+            background: blue;
+            position: absolute;
+            display: inline-block;
+        }
+
+        .full {
+            background: white;
+        }
+    </style>
+</head>
+
+<body>
+
+</body>
+
+</html>

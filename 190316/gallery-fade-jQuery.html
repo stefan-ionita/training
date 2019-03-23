@@ -30,7 +30,9 @@
 			top: 0;
 			transition: opacity 1s;
 		}
-
+		.imageContainer.active {
+			opacity: 1!important; z-index: 50!important;
+		}
 		.imageContainer img {
 			max-width: 100%;
 			max-height: 100%;
@@ -99,26 +101,12 @@
 				img.attr("src", val).appendTo($(".imagesContainer"));
 				var newDot = $('.navDots').append('<li></li>');
 			});
-			var img = $("html").find("img");
-
-
 			
-			//setTimeout(function() {
-			$("html").find("img").each(function () {
-
-
-
-			})
-
-			//}, 1000);
-
+			
+			
+			var img = $("html").find("img");
 			img.wrap("<div class='imageContainer'></div>");
-
-
-
 			var imageContainer = $(".imageContainer");
-
-
 			imageContainer.css({
 				width: galleryWidth + "px",
 				height: galleryHeight + "px",
@@ -158,9 +146,7 @@
 			console.log(dots);
 			
 			$(dots).on('click', function () {
-				console.log("click");
 				var index = $(this).index() + 1;
-				debugger;
 				$(active).fadeOut(300);
 
 				$("#img" + index).fadeIn(300);
@@ -175,6 +161,8 @@
 			}
 
 			startAnimation();
+			
+				dots();
 
 		});
 
