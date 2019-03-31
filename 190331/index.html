@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tetris</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", start);
+        var dragDiv;
+        var windowWidth;
+        var windowHeight;
+        var dx, dy;
+        var p2;
+
+        //var dragging;
+
+        function start(e) {
+            windowWidth = window.innerWidth;
+            windowHeight = window.innerHeight;
+            dragDiv = document.getElementsByClassName("dragDiv")[0]; // get by class returneaza o lista, de aia selectam [0] primul element
+
+            dragDiv.addEventListener("mousedown", dragDivMouseDown);
+            window.addEventListener("resize", windowResize);
+            document.body.addEventListener("mouseleave", pageLeave);
+            p2 = document.getElementsByClassName("blueDiv")[0].getBoundingClientRect();
+        }
+        function dragDivMouseDown(e) {
+            document.body.addEventListener("mouseup", dragDivMouseUp);
+            document.body.addEventListener("mousemove", dragDivMouseMove);
+            // dragging = true;
+            dx = e.clientX - e.target.getBoundingClientRect().x;
+            dy = e.clientY - e.target.getBoundingClientRect().y;
+        }
+        function pageLeave(e) {
+            document.body.removeEventListener("mousemove", dragDivMouseMove);
+            document.body.removeEventListener("mouseup", dragDivMouseUp);
+        }
+        function windowResize(e) {
+            windowWidth = window.innerWidth;
+            windowHeight = window.innerHeight;
+        }
+
+        function dragDivMouseMove(e) {
+
+            //if (dragging){
+            var x = e.clientX - dx;
+            var y = e.clientY - dy;
+
+
+            if (x > windowWidth - 50) {
+                x = windowWidth - 50;
+            }
+            if (x < 0) {
+                x = 0;
+            }
+            if (y < 0) {
+                y = 0;
+            }
+            if (y > windowHeight - 50) {
+                y = windowHeight - 50;
+            }
+
+            var p1 = {
+                x: x,
+                y: y,
+                width: 50,
+                height: 50
+            };
+
+            if (p1.x > p2.x + p2.width ||
+                p1.x + p1.width < p2.x ||
+                p1.y > p2.y + p2.height ||
+                p1.y + p1.height < p2.y) {
+                    console.log("nu am coliziune");
+                } else {
+                    console.log("am coliziune")
+                }
+            
+            dragDiv.style.left = `${x}px`;
+            dragDiv.style.top = `${y}px`;
+            //}
+        }
+
+        function dragDivMouseUp(e) {
+
+            document.body.removeEventListener("mousemove", dragDivMouseMove);
+            document.body.removeEventListener("mouseup", dragDivMouseUp);
+            //dragging = false;
+        } 
+    </script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .dragDiv {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: red;
+            position: absolute;
+        }
+
+        .blueDiv {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: blue;
+            position: absolute;
+            left: 250px;
+            top: 250px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="dragDiv"></div>
+    <div class="blueDiv"></div>
+    
+</body>
+
+</html>
