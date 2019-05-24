@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tetris</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", start);     
+        var dx, dy;
+        var dragDiv;
+        var sliderWidth = 500;
+        var parentOffset;
+        var valueDiv;
+        var maxValue = 480;
+        var percent;
+        var sliderMaxValue  = 1000;
+        var slideBar;
+
+
+        function start(e) {
+            dragDiv = document.getElementsByClassName("slideDot")[0];
+            valueDiv = document.getElementsByClassName("value")[0];
+            slideBar = document.getElementsByClassName("slideBar")[0];
+            parentOffset = document.getElementsByClassName("slider")[0].offsetLeft;
+            dragDiv.addEventListener("mousedown", dragDivMouseDown);
+            slideBar.addEventListener("mousedown", slideBarMouseDown);
+            document.body.addEventListener("mouseleave", pageLeave);
+            
+        }      
+
+        function slideBarMouseDown(e){
+            
+            document.body.addEventListener("mouseup", dragDivMouseUp);
+            document.body.addEventListener("mousemove", dragDivMouseMove);
+            dx = 10;
+            var x = e.clientX - parentOffset - dx;
+            if (x > sliderWidth - dragDiv.clientWidth) {
+                x = sliderWidth - dragDiv.clientWidth;
+            }
+            dragDiv.style.left = `${x}px`;
+            calcValueFromSlider(x);
+            
+        }
+
+        function pageLeave(e) {
+            document.body.removeEventListener("mousemove", dragDivMouseMove);
+            document.body.removeEventListener("mouseup", dragDivMouseUp);
+        }
+        function dragDivMouseDown(e) {     
+            dx = e.clientX - e.target.getBoundingClientRect().x;
+            dy = e.clientY - e.target.getBoundingClientRect().y;
+
+            document.body.addEventListener("mouseup", dragDivMouseUp);
+            document.body.addEventListener("mousemove", dragDivMouseMove);
+            
+        }
+        function dragDivMouseMove(e) {
+
+            
+            var x = e.clientX - dx - parentOffset;   
+            
+            if (x < 0) {
+                x = 0;
+            }
+            if (x > sliderWidth - dragDiv.clientWidth) {
+                x = sliderWidth - dragDiv.clientWidth;
+            }
+            
+            dragDiv.style.left = `${x}px`;
+            calcValueFromSlider(x);
+            
+        }
+        function calcValueFromSlider(x){
+            var value, percent;
+            percent = Math.round((x * 100) / 480);
+            value = (sliderMaxValue * percent) / 100; 
+            valueDiv.innerHTML = value;
+            valueDiv.style.width = `${value}px`;
+            valueDiv.style.height = `${value}px`;
+        }
+
+        function dragDivMouseUp(e) {
+
+            document.body.removeEventListener("mousemove", dragDivMouseMove);
+            document.body.removeEventListener("mouseup", dragDivMouseUp);
+      
+        } 
+    </script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .slider {
+            position: absolute;
+            top:50%;
+            left:50%;
+            margin-top:-15px;
+            margin-left:-250px;
+            width:500px;
+            height:30px;
+            border:1px solid #000;
+            font-size: 0;
+            user-select: none;
+        }
+        .slideBar {
+            height:5px;
+            background:#000;
+            width:inherit;
+            vertical-align: middle;
+            display: inline-block;
+        }
+        .slideDot {
+            position: absolute;
+            width: 20px; height: 20px;
+            background: red;
+            border-radius: 50%;
+            top:50%;
+            margin-top: -10px;
+        }
+        .phantomElement {
+            vertical-align: middle;
+            display: inline-block;
+            background: green;
+            width: 0px; height: inherit;
+
+        }
+        .value {
+            display: inline-block;
+            background: yellow;
+        }
+    </style>
+</head>
+
+<body>
+<div class="value"></div>
+<div class="slider">
+    <span class="phantomElement"></span>
+    <div class="slideBar"></div>
+    <div class="slideDot"></div>
+</div>
+
+</body>
+
+</html>

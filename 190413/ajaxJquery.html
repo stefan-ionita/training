@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Title of the document</title>
+    <script src="jquery-3.4.0.min.js"></script>
+    <script>
+        $.ajax({
+            url: "https://api.thecatapi.com/v1/images/search",
+            context: document.body
+        }).done(function (data) {
+            var img = new Image();
+            img.src = data[0].url;
+            img.className = "smallImage";
+            document.body.appendChild(img);
+            $(this).addClass("done");
+        });
+    </script>
+</head>
+<style>
+    .smallImage {
+        width: 50%;
+        height: 50%;
+    }
+</style>
+
+<body>
+</body>
+
+</html>

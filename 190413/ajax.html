@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Title of the document</title>
+    <script>
+        function reqListener() {
+            var data = JSON.parse(this.responseText);
+            console.log(data);
+            var img = new Image();
+            img.src = data[0].url;
+            img.className = "smallImage";
+            document.body.appendChild(img);
+        }
+
+        var oReq = new XMLHttpRequest();
+        oReq.addEventListener("load", reqListener);
+        oReq.open("GET", "https://api.thecatapi.com/v1/images/search"); // asta zice unde se duce requestul
+        oReq.send(); // asta porneste requestul
+    </script>
+</head>
+<style>
+    .smallImage {
+        width: 50%;
+        height: 50%;
+    }
+</style>
+
+<body>
+    The content of the document......
+</body>
+
+</html>

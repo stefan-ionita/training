@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tetris</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", start);
+        var dragDivs = [];
+        var noDivs = 10;
+        var windowWidth;
+        var windowHeight;
+        var dragDiv;
+        var dx, dy;
+        //var p2;
+        //var dragging;
+
+        function createDivs() {
+            var div;
+            for (var i = 0; i < noDivs; i++) {
+                div = document.createElement("div");
+                document.body.appendChild(div);
+                div.className = "dragDiv";
+                div.style.top = `${Math.random() * windowHeight - 100}px`;
+                div.style.left = `${Math.random() * windowWidth - 100}px`;
+                div.style.width = `${10 + Math.random() * 100}px`;
+                div.style.height = `${10 + Math.random() * 100}px`;
+                dragDivs.push(div);
+
+                div.addEventListener("mousedown", dragDivMouseDown);
+            }
+        }
+        function start(e) {
+            windowWidth = window.innerWidth;
+            windowHeight = window.innerHeight;
+            createDivs();
+            
+
+            window.addEventListener("resize", windowResize);
+            document.body.addEventListener("mouseleave", pageLeave);
+            
+        }
+        function dragDivMouseDown(e) {
+            document.body.addEventListener("mouseup", dragDivMouseUp);
+            document.body.addEventListener("mousemove", dragDivMouseMove);
+        
+            dx = e.clientX - e.target.getBoundingClientRect().x;
+            dy = e.clientY - e.target.getBoundingClientRect().y;
+            dragDiv = e.currentTarget;
+        }
+        function pageLeave(e) {
+            document.body.removeEventListener("mousemove", dragDivMouseMove);
+            document.body.removeEventListener("mouseup", dragDivMouseUp);
+        }
+        function windowResize(e) {
+            windowWidth = window.innerWidth;
+            windowHeight = window.innerHeight;
+        }
+
+        function dragDivMouseMove(e) {
+
+            
+            var x = e.clientX - dx;
+            var y = e.clientY - dy;
+            var p2;
+            var collision = false;    
+            
+            if (x < 0) {
+                x = 0;
+            }
+            if (y < 0) {
+                y = 0;
+            }
+            if (x > windowWidth - dragDiv.clientWidth) {
+                x = windowWidth - dragDiv.clientWidth;
+            }
+            if (y > windowHeight - dragDiv.clientHeight) {
+                y = windowHeight - dragDiv.clientHeight;
+            }
+
+            var p1 = {
+                x: x,
+                y: y,
+                width: dragDiv.clientWidth,
+                height: dragDiv.clientHeight
+            }
+
+            for (var i = 0; i < dragDivs.length; i++) {
+                if (dragDivs[i] !== dragDiv) {
+                    p2 = {
+                        x: dragDivs[i].offsetLeft,
+                        y: dragDivs[i].offsetTop,
+                        width: dragDivs[i].clientWidth,
+                        height: dragDivs[i].clientHeight
+                    };
+                    if (p1.x > p2.x + p2.width ||
+                        p1.x + p1.width < p2.x ||
+                        p1.y > p2.y + p2.height ||
+                        p1.y + p1.height < p2.y) {
+                        dragDivs[i].style.background = "red";
+                    } else { collision = true;
+                            dragDivs[i].style.background = "green";
+                    }
+                }
+            }
+
+            if (collision == true) {
+                dragDiv.style.background = "green";
+            }else{
+                dragDiv.style.background = "red";
+            }
+
+
+
+            dragDiv.style.left = `${x}px`;
+            dragDiv.style.top = `${y}px`;
+            //}
+        }
+
+        function dragDivMouseUp(e) {
+
+            document.body.removeEventListener("mousemove", dragDivMouseMove);
+            document.body.removeEventListener("mouseup", dragDivMouseUp);
+            dragDiv = null;
+            //dragging = false;
+        } 
+    </script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .dragDiv {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: red;
+            position: absolute;
+            user-select: none;
+        }
+
+        .blueDiv {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: blue;
+            position: absolute;
+            left: 250px;
+            top: 250px;
+        }
+    </style>
+</head>
+
+<body>
+
+
+</body>
+
+</html>
